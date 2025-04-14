@@ -57,24 +57,34 @@ source .venv/bin/activate
     i. dentro de el archivo models.py
       - heredan de models.Model
       - los atributos los completan con los Fields que les brinda models ejemplo models.CharField(max_length=20)
+        
     ii. generar una migracion con el comando python manage.py makemigrations
+    
     iii. plasmar la migracion en la bd con el comando python manage.py migrate
+    
     iv. En caso de modificacion de un modelo existente, creacion de otro modelo o borrado de un modelo volver a ejecutar los pasos 2 y 3
         - tener en cuenta que para modificar el nombre y los atributos de un mismo modelo se deben hacer los pasos 2 y 3 una vez por la modificacion de los atributos y otro por el cambio en el nombre del modelo para no generar conflictos con django
+    
     v. registrar el modelo en el apartado de admin importando en el archivo admin.py el modelo y agregando el codigo admin.site.register(<modelo_importado>)
         - en caso de ser varios modelos se puede agregar esta ultima linea para cada modelo o hacer una sola linea y pasarle todos los modelos dentro de una lista
+    
     vi. importar el modelo creado en el views.py que corresponda para utilizarlo en las vistas
 
-21. crear formularios
+22. crear formularios
 
     i. crear el archivo forms.py dentro de la app que corresponda en caso que no este creado
     ii. crear el formulario
       - heredan de forms.Form
       - los atributos los completan con los Fields que les brinda forms ejemplo forms.CharField(max_length=20) (****)
+        
     iii. importar el formulario creado en el views.py que corresponda para utilizarlo en las vistas
 
 
+
 (*) En caso de no utilizar entorno virtual omitir este paso
+
 (**) Este paso se debe repetir tras cada instalacion de paquetes para mantener la informacion actualizada
+
 (***) No olvidar el punto al final para que les genere el proyecto donde estan parados y no se creen carpetas de mas
+
 (****) Como veran es muy similar a lo que se hace en los modelos (no es exactamente igual para todo)
