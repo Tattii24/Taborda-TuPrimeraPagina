@@ -6,6 +6,7 @@ class Zapato(models.Model):
     modelo=models.CharField(max_length=30)
     talla=models.IntegerField()
     color=models.CharField(max_length=30, default='sin color')
+    fecha_creacion=models.DateTimeField(null=True)
 
     def __str__(self):
         return f'{self.marca}  {self.modelo} -Talla {self.talla} ({self.color})'
