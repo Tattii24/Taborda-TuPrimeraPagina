@@ -5,4 +5,4 @@ class CreacionZapatos(forms.Form):
     modelo=forms.CharField(max_length=30)
     talla=forms.IntegerField(required=True)
     color=forms.CharField(max_length=30)
-    
+    fecha_creacion=forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'date'}))

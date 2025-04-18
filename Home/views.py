@@ -18,7 +18,8 @@ def crear_zapatos(request):
                 marca=info['marca'],
                 modelo=info['modelo'],
                 talla=info['talla'],  # Ahora es obligatorio
-                color=info.get('color', 'sin color')
+                color=info.get('color', 'sin color'), fecha_creacion=info.get('fecha_creacion', None)
+                
                 )
             zapato.save()
             return redirect ('lista_zapatos')
