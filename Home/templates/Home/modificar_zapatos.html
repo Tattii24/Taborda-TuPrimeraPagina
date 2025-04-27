@@ -1,0 +1,15 @@
+{% extends "base.html" %} 
+
+{% block contenido %}
+
+<h1>Modificar {{zapato}}</h1>
+<form action="{% url 'modificar_zapatos' zapato.id %}" method="POST">
+    {% csrf_token %}
+
+    {{form}}
+
+    <input type="submit" value="Modificar">
+
+</form>
+
+{%endblock contenido%}

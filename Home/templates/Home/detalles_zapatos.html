@@ -1,0 +1,14 @@
+
+{% extends "base.html" %} 
+
+{% block contenido %}
+<h1>{{zapato}}</h1>
+<p>Marca: {{ zapato.marca }}</p>
+<P>Modelo: {{ zapato.modelo}}</P>  
+<P>Talla: {{ zapato.talla }}</P> 
+<P>Color: {{ zapato.color }}</P>
+<P>Fecha: {{ zapato.fecha_creacion }}</P>
+
+{%endblock contenido%}
+    
+

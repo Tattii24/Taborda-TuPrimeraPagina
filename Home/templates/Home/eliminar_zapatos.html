@@ -1,0 +1,12 @@
+
+{% extends "base.html" %} 
+
+{% block contenido %}
+<h1>¿Eliminar {{ zapato }}?</h1>
+<form method="POST">
+    {% csrf_token %}
+    <p>¿Estás seguro de que deseas eliminar este zapato?</p>
+    <input type="submit" value="Confirmar eliminación">
+    <a href="{% url 'lista_zapatos' %}">Cancelar</a>
+</form>
+{%endblock contenido%}
