@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from Home.forms import CreacionZapatos
 from Home.models import Zapato
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 def inicio(request):
     #return HttpResponse('<h1>Hola</h1>')
@@ -18,7 +21,7 @@ def crear_zapatos(request):
                 marca=info['marca'],
                 modelo=info['modelo'],
                 talla=info['talla'],  # Ahora es obligatorio
-                color=info.get('color', 'sin color'), fecha_creacion=info.get('fecha_creacion', None)
+                color=info.get('color', 'sin color'), fecha_creacion=info.get('fecha_creacion', None)      
                 
                 )
             zapato.save()
@@ -31,3 +34,26 @@ def crear_zapatos(request):
 def lista_zapatos(request):
     zapatos= Zapato.objects.all()
     return render(request, 'Home/lista_zapatos.html', {'zapatos':zapatos})
+
+def detalles_zapatos(request, zapato_id):
+    zapato=Zapato.objects.get(id=zapato_id)
+    return render(request, 'Home/detalles_zapatos.html', {'zapato':zapato})
+
+class VistaDetallesZapatos(DetailView):
+    model= Zapato
+    template_name = "Home/detalles_zapatos.html"
+
+
+
+
+class VistaModificarZapatos(UpdateView):
+    model = Zapato
+    template_name = "Home/modificar_zapatos.html"
+    fields = ["marca", "modelo", "talla", "color", "fecha_creacion"]
+    success_url = reverse_lazy ('lista_zapatos')
+
+
+class VistaEliminarZapatos(DeleteView):
+    model = Zapato
+    template_name= "Home/eliminar_zapatos.html"
+    success_url = reverse_lazy ('lista_zapatos')
