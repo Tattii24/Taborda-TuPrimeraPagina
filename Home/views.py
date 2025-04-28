@@ -5,11 +5,14 @@ from Home.models import Zapato
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 def inicio(request):
     #return HttpResponse('<h1>Hola</h1>')
     return render(request,'Home/inicio.html')
 
+@login_required
 def crear_zapatos(request):
     print("Datos de GET: ")
     print("Datos de POST:")
@@ -46,14 +49,14 @@ class VistaDetallesZapatos(DetailView):
 
 
 
-class VistaModificarZapatos(UpdateView):
+class VistaModificarZapatos(LoginRequiredMixin, UpdateView):
     model = Zapato
     template_name = "Home/modificar_zapatos.html"
     fields = ["marca", "modelo", "talla", "color", "fecha_creacion"]
     success_url = reverse_lazy ('lista_zapatos')
 
 
-class VistaEliminarZapatos(DeleteView):
+class VistaEliminarZapatos(LoginRequiredMixin, DeleteView):
     model = Zapato
     template_name= "Home/eliminar_zapatos.html"
     success_url = reverse_lazy ('lista_zapatos')
