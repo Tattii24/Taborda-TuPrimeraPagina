@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
     {% load static %}
+    
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -49,13 +50,15 @@
 
     </nav>
     <!-- Masthead-->
-        <header class="masthead">
+    
+    <header class="masthead" style="background-image: url('{% static "assets/img/bg/header-bg.jpg" %}');">
+
             <div class="container">
                 <div class="masthead-subheading">Bienvenidos A Mi Pagina!</div>
                 <div class="masthead-heading text-uppercase">Es Un Placer Conocerte</div>
                 <a class="btn btn-primary btn-xl text-uppercase" href="#">Inicio</a>
             </div>
-        </header>
+    </header>
 
     {% block contenido %}{%endblock contenido %}
         <!-- Footer-->
