@@ -1,63 +1,103 @@
-
-    <title>Zapatos</title>
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-</style>
-
-{% extends "base.html" %} 
+{% extends "base.html" %}
+{% load static %}
 
 {% block contenido %}
-<h1>Zapatos</h1>
-<p>
-    <a href={%url "crear_zapatos"%}>Crear Zapatos</a>
-</p>
+<section class="page-section" id="zapatos">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Nuestra Colección</h2>
+            <h3 class="section-subheading text-muted">Haz clic en la imagen para ver detalles</h3>
+        </div>
 
-{% if zapatos %}
-<table>
-    <thead>
-        <tr>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Talla</th>
-            <th>Color</th>
-            <th>Más</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for zapato in zapatos %}
-        <tr>
-            <td>{{ zapato.marca }} </td> 
-            <td>{{ zapato.modelo}}</td>
-            <td>{{ zapato.talla }}</td>
-            <td>{{ zapato.color }} </td>
-            <td>{{zapato.mas}}
-                | <a href={%url "detalles_zapatos" zapato.id%}>Ver mas</a>
-                | <a href={%url "modificar_zapatos" zapato.id%}>Modificar</a>
-                | <a href={%url "eliminar_zapatos" zapato.id%}>Eliminar</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% else %}
-<p>No hay zapatos creados</p>
-{% endif %}
+        <div class="text-center mb-5">
+            <a href="{% url 'crear_zapatos' %}" class="btn btn-primary btn-xl text-uppercase">
+                <i class="fas fa-plus me-2"></i> Agregar Zapato
+            </a>
+        </div>
 
-{%endblock contenido%}
+        <div class="row">
+            {% if zapatos %}
+                {% for zapato in zapatos %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <!-- Contenedor de imagen con dimensiones fijas -->
+                        <div class="image-container" style="height: 200px; overflow: hidden;">
+                            <a href="{% url 'detalles_zapatos' zapato.id %}">
+                                {% if zapato.imagen %}
+                                <div style="height: 200px; background: white; display: flex; justify-content: center; align-items: center; padding: 10px;">
+                                    <img src="{{ zapato.imagen.url }}" 
+                                        class="img-fluid"
+                                        style="max-height: 180px; max-width: 100%; height: auto; width: auto; cursor: pointer;"
+                                        alt="{{ zapato.marca }} {{ zapato.modelo }}"
+                                        onerror="this.onerror=null; this.src='{% static 'assets/img/default-shoe.jpg' %}'">
+                                </div>
+                                {% else %}
+                                <img src="{% static 'assets/img/default-shoe.jpg' %}" 
+                                    class="img-fluid w-100 h-100"
+                                    style="object-fit: cover; cursor: pointer;"
+                                    alt="Imagen predeterminada">
+                                {% endif %}
+                            </a>
+                        </div>
+                        
+                        <div class="card-body">
+                            <!-- Nombre y modelo -->
+                            <h5 class="card-title">{{ zapato.marca }}</h5>
+                            <p class="card-text text-muted">{{ zapato.modelo }}</p>
+                            
+                            <!-- Botones de acción -->
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <a href="{% url 'modificar_zapatos' zapato.id %}" class="btn btn-sm btn-outline-warning">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <a href="{% url 'eliminar_zapatos' zapato.id %}" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center py-5">
+                    <div class="alert alert-info">
+                        No hay zapatos disponibles actualmente.
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Efecto hover opcional */
+    .image-container img {
+        transition: transform 0.3s ease;
+    }
+    .image-container:hover img {
+        transform: scale(1.05);
+    }
     
-
-</body>
-</html>
+    /* Asegura que el card ocupe toda la altura */
+    .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    
+    .card-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Centra el texto y los botones */
+    .card-title, .card-text {
+        text-align: center;
+    }
+    
+    .card-body > div {
+        margin-top: auto;
+    }
+</style>
+{% endblock %}

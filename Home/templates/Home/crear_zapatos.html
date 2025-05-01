@@ -1,17 +1,12 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
 {% block contenido %}
-<h1>Creación de zapatos</h1>
-<form action="{%url "crear_zapatos"%}" method="POST">
-    {% csrf_token %}
-
-    {{formulario}}
-
-    <input type="submit" value="Crear">
-
-</form>
-</body>
-</html>
-
-{%endblock contenido%}
-    
+<div class="container">
+    <h2>Crear Nuevo Zapato</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+{% endblock contenido%}

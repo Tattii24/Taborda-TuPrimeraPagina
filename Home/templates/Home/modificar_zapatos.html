@@ -1,15 +1,61 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
 {% block contenido %}
-
-<h1>Modificar {{zapato}}</h1>
-<form action="{% url 'modificar_zapatos' zapato.id %}" method="POST">
-    {% csrf_token %}
-
-    {{form}}
-
-    <input type="submit" value="Modificar">
-
-</form>
-
-{%endblock contenido%}
+<div class="container mt-4">
+    <h2>Modificar {{ object.marca }} {{ object.modelo }}</h2>
+    
+    <!-- Mostrar imagen actual -->
+    {% if object.imagen %}
+    <div class="mb-3">
+        <label class="form-label">Imagen actual:</label>
+        <img src="{{ object.imagen.url }}" class="img-thumbnail" style="max-height: 200px;">
+    </div>
+    {% endif %}
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Campos del formulario -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                {{ form.marca.label_tag }}
+                {{ form.marca }}
+                {{ form.marca.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+                {{ form.modelo.label_tag }}
+                {{ form.modelo }}
+                {{ form.modelo.errors }}
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                {{ form.talla.label_tag }}
+                {{ form.talla }}
+                {{ form.talla.errors }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.color.label_tag }}
+                {{ form.color }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.fecha_creacion.label_tag }}
+                {{ form.fecha_creacion }}
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            {{ form.imagen.label_tag }}
+            {{ form.imagen }}
+            <small class="text-muted">Formatos: JPG, JPEG, PNG (Máx. 5MB)</small>
+            {{ form.imagen.errors }}
+        </div>
+        
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <a href="{% url 'lista_zapatos' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

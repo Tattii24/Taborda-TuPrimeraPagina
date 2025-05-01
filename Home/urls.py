@@ -1,14 +1,11 @@
 from django.urls import path
-from Home.views import inicio, crear_zapatos, lista_zapatos, detalles_zapatos, VistaDetallesZapatos, VistaModificarZapatos, VistaEliminarZapatos
-
+from Home.views import (InicioView, ListaZapatosView,CrearZapatosView, DetallesZapatosView, ModificarZapatosView, EliminarZapatosView)
 
 urlpatterns = [
-    path('', inicio, name='inicio'),
-    path('zapatos/', lista_zapatos, name='lista_zapatos'),
-    path('zapatos/crear/', crear_zapatos, name='crear_zapatos'),
-    #path('zapatos/<int:zapato_id>/',detalles_zapatos, name='detalles_zapatos'),
-    path ('zapatos/<int:pk>/', VistaDetallesZapatos.as_view(), name='detalles_zapatos'),
-    path('zapatos/<int:pk>/modificar/', VistaModificarZapatos.as_view(), name='modificar_zapatos'),
-    path('zapatos/<int:pk>/eliminar/', VistaEliminarZapatos.as_view(), name='eliminar_zapatos')
-    
-    ]
+    path('', InicioView.as_view(), name='inicio'),
+    path('zapatos/', ListaZapatosView.as_view(), name='lista_zapatos'),
+    path('zapatos/crear/', CrearZapatosView.as_view(), name='crear_zapatos'),
+    path('zapatos/<int:pk>/', DetallesZapatosView.as_view(), name='detalles_zapatos'),
+    path('zapatos/<int:pk>/modificar/', ModificarZapatosView.as_view(), name='modificar_zapatos'),
+    path('zapatos/<int:pk>/eliminar/', EliminarZapatosView.as_view(), name='eliminar_zapatos')
+]
