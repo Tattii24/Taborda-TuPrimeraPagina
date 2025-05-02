@@ -1,3 +1,5 @@
+**** Link video de la pagina https://youtu.be/D6I8nwjQMXg
+
 1. creamos una carpeta donde vamos a meter el proyecto
 
 2. entramos en la carpeta y la abrimos con vscode
